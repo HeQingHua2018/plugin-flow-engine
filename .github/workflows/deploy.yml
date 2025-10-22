@@ -1,0 +1,38 @@
+# workflows/deploy.yml
+name: Deploy Dumi Docs
+
+on:
+  push:
+    branches: [ "main" ]  # 监听 main 或 master 分支的推送
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 关键：授予写入权限
+    if: contains(github.event.head_commit.message, 'release') # 仅当提交信息包含 release 时执行
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.x  # 推荐使用 LTS 版本
+        registry-url: 'https://registry.npmjs.org'  # 替换成npm镜像
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build Project
+      run: npm run docs:build  # 执行 Dumi 构建命令
+
+    - name: Create CNAME file
+      run: echo "flow.chloehe.cn" > docs-dist/CNAME  # 替换为你的自定义域名
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}  # 自动使用内置 token
+        publish_dir: ./docs-dist  # 必须与 outputPath 一致
+        keep_files: false         # 是否保留历史文件（首次部署建议 false）
+        force_orphan: true        # 强制清理旧文件

@@ -4,9 +4,9 @@ import path from 'path';
 
 export default defineConfig({
   title: 'Plugin Flow Engine', // 站点标题
+  outputPath: 'docs-dist',
   base: '/',
   publicPath: '/',
-  outputPath: 'dist',
   themeConfig: {
     name: 'Plugin Flow Engine',
     description: '一个基于插件化架构的流程执行引擎',
