@@ -6,22 +6,28 @@
  * @example: 调用示例
  */
 
+import type { Node as FlowNode, Edge as FlowEdge } from '@xyflow/react';
+
+/**
+ * 流程数据结构
+ */
 interface FlowData {
   nodes: Node[];
   edges: Edge[];
 }
 
-interface Node {
-  id: string;
-  type: string;
-  position: { x: number; y: number };
-  data: { label: string; nodeType: string };
+/**
+ * 流程节点结构
+ */
+interface Node extends FlowNode {
+ [key:string]: any
 }
 
-interface Edge {
-  id: string;
-  source: string;
-  target: string;
+/**
+ * 流程边结构
+ */
+interface Edge extends FlowEdge {
+  [key:string]: any
 }
 
 export type {
