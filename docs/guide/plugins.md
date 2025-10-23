@@ -9,10 +9,10 @@ toc: menu
 Plugin Flow Engine 通过“节点插件”实现流程的可扩展与解耦。外部项目可以：
 - 注册自定义插件（实现或继承 `BaseNodePlugin`）
 - 注入或覆写节点的表单 `schema`
-- 注入自定义表单控件组件[widgets.md](./widgets)
+- 注入自定义表单控件组件[widgets.md](./widgets.md)
 - 替换内置插件的路由/执行策略
 - 插件的 `getNodeFormConfig` 除了返回 `schema`，还可以同时返回 `widgets`，在注册插件时会被自动注入。
-- 相关类型速查：参见 [Node](./types#node)、[Edge](./types#edge)、[ExecutionHistory](./types#executionhistory)、[NodeConfig](./types#nodeconfig)
+- 相关类型速查：参见 [Node](./types.md#node)、[Edge](./types.md#edge)、[ExecutionHistory](./types.md#executionhistory)、[NodeConfig](./types.md#nodeconfig)
 
 
 ## 注册自定义插件
@@ -165,7 +165,7 @@ PluginManagerInstance().registerPlugin(new MyActionPlugin()); // 如果 MyAction
 ```
 
 ## 注入自定义控件
-详细文档参考 [自定义控件](./widgets)
+详细文档参考 [自定义控件](./widgets.md)
 
 ## 最佳实践与注意事项
 

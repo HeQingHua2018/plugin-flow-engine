@@ -2,6 +2,7 @@
   "name": "plugin-flow-engine",
   "version": "0.0.1",
   "description": "A react library developed with dumi",
+  "homepage": "https://flow.chloehe.cn",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "scripts": {
@@ -16,8 +17,18 @@
     "lint": "npm run lint:es && npm run lint:css",
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
-    "prepublishOnly": "father doctor && npm run build"
+    "prepublishOnly": "father doctor && npm run build",
+    "changelog": "node scripts/changelog.js"
   },
+    "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/HeQingHua2018/plugin-flow-engine.git"
+  },
+  "keywords": [
+    "plugin",
+    "flow",
+    "engine"
+  ],
   "authors": [
     "1668831925@qq.com"
   ],
