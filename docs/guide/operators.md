@@ -22,13 +22,13 @@ injectOperator('isMobile', (factValue) => {
 });
 
 // 示例：注入一个“对象是否包含某键”的操作符
-injectOperator('hasKey', (factValue, jsonValue) => {
+injectOperator('hasKey', (factValue, compareValue) => {
   if (!factValue || typeof factValue !== 'object') return false;
-  const key = String(jsonValue);
+  const key = String(compareValue);
   return Object.prototype.hasOwnProperty.call(factValue, key);
 });
 ```
-- 签名：`(factValue, jsonValue, almanac?) => boolean`（同步返回 `boolean`）
+- 签名：`(factValue, compareValue) => boolean`（同步返回 `boolean`）
 - 作用域：注入一次后，在后续规则评估中生效；每次评估都会创建新的引擎并统一注册。
 
 ## 使用示例
@@ -42,27 +42,45 @@ const isVipBranch = {
 
 const usernameStartsWith = {
   all: [
-    { fact: 'username', operator: 'startsWith', value: { value: 'he', caseInsensitive: true } },
+    { fact: 'username', operator: 'start_with', value: 'he' },
   ],
 };
 
 const scoreBetween = {
   all: [
-    { fact: 'score', operator: 'between', value: { min: 60, max: 100, inclusive: true } },
+    { fact: 'score', operator: 'between', value: [60, 100] },
+  ],
+};
+
+const arrInclude = {
+  all: [
+    { fact: 'tags', operator: 'include', value: ['vip', 'paid'] },
+  ],
+};
+
+const regexMatch = {
+  all: [
+    { fact: 'email', operator: 'regex', value: '^\\w+@example\\.com$' },
   ],
 };
 ```
 
 ## 内置增强操作符
-- 已自动注册，开箱可用：
-  - `startsWith`：字符串前缀匹配，支持 `{ value, caseInsensitive }`
-  - `endsWith`：字符串后缀匹配，支持 `{ value, caseInsensitive }`
-  - `contains`：字符串或数组包含判断
-  - `regex`：正则匹配，支持 `{ pattern, flags }`
-  - `between`：数值区间判断，支持 `{ min, max, inclusive }`
-  - `isEmpty`：为空（null/undefined/空串/空数组/空对象）
-  - `notEmpty`：非空判断
-  - `hasKey`：对象是否包含指定键
+- 已自动注册，开箱可用（与当前实现保持一致）：
+  - `start_with`：字符串前缀匹配。`value` 为字符串；非字符串会转为字符串比较。
+  - `end_with`：字符串后缀匹配。`value` 为字符串；非字符串会转为字符串比较。
+  - `include`：包含判断。支持两种场景：
+    - 字符串包含子串：`fact`、`value` 都为字符串。
+    - 数组包含元素：`fact` 为数组；`value` 可为单值或数组（数组时要求全部包含）。
+  - `not_include`：不包含判断，对应 `include` 的逻辑取反。
+  - `regex`：正则匹配。`value` 支持 `RegExp` 或正则字符串（如 `"^abc$"`）。
+  - `between`：数值区间判断。`value` 为 `[min, max]` 数组；包含边界。
+  - `not_between`：数值不在区间。`value` 为 `[min, max]` 数组；排除边界。
+  - `is_empty`：为空（null/undefined/空串/空数组/空对象）。
+  - `not_empty`：非空判断。
+  - `has_key`：对象是否包含指定键。`value` 为字符串或字符串数组（数组时要求全部包含）。
+
+> 注：当前内置操作符不支持大小写不敏感或 `inclusive` 等扩展配置；如需此类能力，可通过 `injectOperator` 注入自定义操作符实现。
 
 ## 最佳实践
 - 操作符保持纯函数，避免副作用；外部数据通过 `fact` 动态提供。
@@ -71,11 +89,11 @@ const scoreBetween = {
 - 对复杂逻辑优先封装为可复用 `fact`（变量）或插件逻辑，操作符侧仅做布尔判断。
 
 ## 相关类型速查
-- [TopLevelCondition](http://localhost:8003/guide/types#toplevelcondition)
-- [OperatorFn](http://localhost:8003/guide/types#operatorfn)
-- [FlowDefinition](http://localhost:8003/guide/types#flowdefinition)
-- [Node](http://localhost:8003/guide/types#node)、[Edge](http://localhost:8003/guide/types#edge)
+- [TopLevelCondition](./types.md#toplevelcondition)
+- [OperatorFn](./types.md#operatorfn)
+- [FlowDefinition](./types.md#flowdefinition)
+- [Node](./types.md#node)、[Edge](./types.md#edge)
 
 ## 参考
-- 类型速查：[类型速查](http://localhost:8003/guide/types)
-- 流程数据定义（示例与最佳实践）：[流程数据定义](http://localhost:8003/guide/flow)
+- 类型速查：[类型速查](./types.md)
+- 流程数据定义（示例与最佳实践）：[流程数据定义](./flow.md)

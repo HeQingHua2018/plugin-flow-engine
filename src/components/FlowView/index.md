@@ -9,9 +9,9 @@ group: # 分组
 
 # FlowView 组件
 
-#API
+## API
 
-## FlowViewProps
+### FlowViewProps
 
 | 参数名 | 类型 | 默认值 | 说明 |
 | --- | --- | --- | --- |
@@ -21,6 +21,6 @@ group: # 分组
 | `isValidate` | `boolean` | `false` | 是否在抽屉关闭时校验节点配置表单。 |
 
 
-# 基础示例
+## 基础示例
 <code src="./demo/basic.tsx"></code>
 

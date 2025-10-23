@@ -254,7 +254,24 @@ export class PluginExecutionEngine {
       registerAllOperators(engine);
       return engine;
   }
-
+  /**
+   * 递归提取条件中使用到的 fact 名称，避免未定义导致引擎抛错
+   * @param conditions 规则条件
+   * @param acc 累加器，用于存储提取到的 fact 名称
+   * @returns 包含所有使用到的 fact 名称的 Set 集合
+   */
+  private collectConditionFacts(conditions: any, acc: Set<string> = new Set()): Set<string> {
+    if (!conditions || typeof conditions !== 'object') return acc;
+    const groups = Array.isArray(conditions)
+      ? conditions
+      : [ ...(conditions.all || []), ...(conditions.any || []) ];
+    groups.forEach((cond: any) => {
+      if (!cond) return;
+      if (typeof cond.fact === 'string') acc.add(cond.fact);
+      if (cond.all || cond.any) this.collectConditionFacts(cond, acc);
+    });
+    return acc;
+  }
   /**
    * 评估规则
    * @param conditions 规则
@@ -270,9 +287,18 @@ export class PluginExecutionEngine {
     const engine = this.createEngine();
     try {
       const variables = this.contextManager.getVariables();
+      // 为缺失的 fact 填充默认值，避免 json-rules-engine 在取值时抛错
+      const facts = this.collectConditionFacts(conditions);
+      const safeVariables: Record<string, any> = { ...variables };
+      facts.forEach((name) => {
+        if (!Object.prototype.hasOwnProperty.call(safeVariables, name)) {
+          safeVariables[name] = null; // 使用 null 作为默认空值
+        }
+      });
       
       console.log(`[PluginExecutionEngine] 评估规则 ${nodeId}:`, conditions);
       console.log(`[PluginExecutionEngine] 当前变量:`, variables);
+      console.log(`[PluginExecutionEngine] 归一化变量:`, safeVariables);
       
       // 添加规则
       engine.addRule({
@@ -280,8 +306,8 @@ export class PluginExecutionEngine {
         event: { type: "match" },
       });
       
-      // 运行规则引擎
-      const results = await engine.run(variables);
+      // 运行规则引擎（使用归一化变量）
+      const results = await engine.run(safeVariables);
       
       // 检查是否有匹配的事件
       const isMatch = results.events.some(

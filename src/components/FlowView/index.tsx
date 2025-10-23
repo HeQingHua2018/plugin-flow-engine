@@ -1,12 +1,12 @@
 /*
  * @File: FlowView.tsx
- * @desc: 流程视图组件（库版本） - 通过 props 输入节点与边数据
+ * @desc: 流程视图组件
  */
 import { Controls, ReactFlow } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { Button, Drawer, message, Modal, Space } from 'antd';
 import { DynamicConfigForm, PluginManagerInstance } from 'plugin-flow-engine';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { FlowData } from './type.d';
 
 export interface FlowViewProps {
@@ -132,7 +132,10 @@ const FlowView: React.FC<FlowViewProps> = ({
         }
       });
       // 初始值来源优先级：本地缓存 > props.initialValue[node.id] > schema.defaultValue > {}
-      const initVal = nodeConfigs[node.id] ?? { ...defaults, ...(initialValue?.[node.id] ?? {}) };
+      const initVal = nodeConfigs[node.id] ?? {
+        ...defaults,
+        ...(initialValue?.[node.id] ?? {}),
+      };
       setNodeFormValue(initVal);
       setDrawerOpen(true);
     } catch (e) {
@@ -185,7 +188,8 @@ const FlowView: React.FC<FlowViewProps> = ({
     // 当没有修改时，直接关闭不弹确认框
     const currentValues = form.getFieldsValue();
     const savedValues = nodeConfigs[selectedNode.id] ?? {};
-    const isSame = JSON.stringify(savedValues) === JSON.stringify(currentValues);
+    const isSame =
+      JSON.stringify(savedValues) === JSON.stringify(currentValues);
     if (isSame) {
       setDrawerOpen(false);
       return;
@@ -206,7 +210,9 @@ const FlowView: React.FC<FlowViewProps> = ({
           }
           updateNodeConfig(selectedNode.id, values);
           setDrawerOpen(false);
-          message.success(isValidate ? '校验通过并已保存' : '已保存当前节点配置');
+          message.success(
+            isValidate ? '校验通过并已保存' : '已保存当前节点配置',
+          );
         } catch (e) {
           message.error('校验失败, 请检查表单输入项');
           // 不关闭抽屉
@@ -225,23 +231,24 @@ const FlowView: React.FC<FlowViewProps> = ({
   };
 
   return (
-    <div style={{ width: '100%', height: '600px', border: '1px solid #ccc' }}>
+    <div style={{ width: '100%', height: '100vh', position: 'relative', overflow: 'hidden' }} id="flow-box">
       <Space style={{ padding: 8 }}>
         <Button type="primary" onClick={handleSaveFlow}>
           保存流程
         </Button>
       </Space>
-
-      <ReactFlow
-        nodes={data.nodes}
-        edges={data.edges}
-        onNodeClick={(event, node) => {
-          openConfigDrawer(node);
-        }}
-        fitView
-      >
-        <Controls />
-      </ReactFlow>
+      <div style={{  height: 'calc(100vh - 64px)' }}>
+        <ReactFlow
+          nodes={data.nodes}
+          edges={data.edges}
+          onNodeClick={(event, node) => {
+            openConfigDrawer(node);
+          }}
+          fitView
+        >
+          <Controls />
+        </ReactFlow>
+      </div>
 
       <Drawer
         open={drawerOpen}
@@ -252,7 +259,11 @@ const FlowView: React.FC<FlowViewProps> = ({
             ? `${selectedNode.data?.label}（${selectedNode?.data?.nodeType}）`
             : '节点配置'
         }
-        destroyOnClose
+        rootStyle={{ position: 'absolute',zIndex:9 }}
+        getContainer={() =>
+          document.getElementById('flow-box') || document.body
+        }
+        destroyOnHidden
       >
         {nodeFormSchema ? (
           <DynamicConfigForm
