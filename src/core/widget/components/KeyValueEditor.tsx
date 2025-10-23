@@ -5,8 +5,9 @@
  * @date: 2025年08月12日 13:51:08
  * @example: 调用示例
  */
-import React, { useState, useEffect } from 'react';
-import { Input, Button, Row, Col } from 'antd';
+import React from 'react';
+import { Input, Button, Space } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import type { WidgetProps } from './BaseWidgetProps';
 
 type KeyValuePair = { key: string; value: string };
@@ -14,75 +15,88 @@ type KeyValuePair = { key: string; value: string };
 type KeyValueEditorProps = WidgetProps<KeyValuePair[], Record<string, any>>;
 
 const KeyValueEditor: React.FC<KeyValueEditorProps> = ({ value, onChange }: KeyValueEditorProps) => {
-  const [pairs, setPairs] = useState<KeyValuePair[]>(value ?? [{ key: '', value: '' }]);
-
-  useEffect(() => {
-    if (value) setPairs(value);
-  }, [value]);
+  const pairs: KeyValuePair[] = Array.isArray(value) ? value : [];
 
   const handleKeyChange = (index: number, key: string) => {
-    const newPairs = [...pairs];
-    newPairs[index].key = key;
-    setPairs(newPairs);
-    onChange(newPairs);
+    const next = pairs.map((p, i) => (i === index ? { ...p, key } : p));
+    onChange(next);
   };
 
   const handleValueChange = (index: number, val: string) => {
-    const newPairs = [...pairs];
-    newPairs[index].value = val;
-    setPairs(newPairs);
-    onChange(newPairs);
+    const next = pairs.map((p, i) => (i === index ? { ...p, value: val } : p));
+    onChange(next);
   };
 
   const addPair = () => {
-    const newPairs = [...pairs, { key: '', value: '' }];
-    setPairs(newPairs);
-    onChange(newPairs);
+    onChange([...pairs, { key: '', value: '' }]);
   };
 
   const removePair = (index: number) => {
-    if (pairs.length <= 1) return;
-    const newPairs = pairs.filter((_, i) => i !== index);
-    setPairs(newPairs);
-    onChange(newPairs);
+    const next = pairs.filter((_, i) => i !== index);
+    onChange(next);
+  };
+
+  // 校验：键必填且唯一
+  const normalizedKeys = pairs.map((p) => (p.key || '').trim());
+  const keyCounts = normalizedKeys.reduce<Record<string, number>>((acc, k) => {
+    if (!k) return acc;
+    acc[k] = (acc[k] || 0) + 1;
+    return acc;
+  }, {});
+  const duplicateKeys = new Set(Object.keys(keyCounts).filter((k) => keyCounts[k] > 1));
+  const hasEmptyKey = normalizedKeys.some((k) => !k);
+
+  const isKeyError = (key?: string) => {
+    const k = (key || '').trim();
+    if (!k) return true;
+    if (duplicateKeys.has(k)) return true;
+    return false;
   };
 
   return (
     <div style={{ marginTop: 8 }}>
-      {pairs.map((pair, index) => (
-        <Row key={index} gutter={[8, 8]} align="middle" style={{ marginBottom: 12 }}>
-          <Col flex="1">
+      <Space direction="vertical" style={{ width: '100%' }} size={8}>
+        {pairs.map((pair, index) => (
+          <div key={index} style={{ display: 'flex', gap: 8, width: '100%' }}>
             <Input
-              placeholder="键"
+              placeholder="键（必填且唯一）"
+              allowClear
+              size="small"
               value={pair.key}
+              status={isKeyError(pair.key) ? 'error' : undefined}
               onChange={(e) => handleKeyChange(index, e.target.value)}
-              style={{ borderRadius: 4 }}
+              style={{ flex: '1 1 0' }}
             />
-          </Col>
-          <Col flex="1">
             <Input
               placeholder="值"
+              allowClear
+              size="small"
               value={pair.value}
               onChange={(e) => handleValueChange(index, e.target.value)}
-              style={{ borderRadius: 4 }}
+              style={{ flex: '1 1 0' }}
             />
-          </Col>
-          <Col>
             <Button
-              type="default"
+              type="text"
               danger
               size="small"
+              icon={<MinusCircleOutlined />}
               onClick={() => removePair(index)}
-              disabled={pairs.length <= 1}
-            >
-              - 移除
-            </Button>
-          </Col>
-        </Row>
-      ))}
-      <Button type="primary" size="small" onClick={addPair} style={{ marginTop: 8 }}>
-        + 添加参数
-      </Button>
+              style={{ minWidth: 0, width: 24, height: 24, padding: 0 }}
+              aria-label="移除一项"
+            />
+          </div>
+        ))}
+        <Button type="dashed" size="small" onClick={addPair} icon={<PlusOutlined />}>添加参数</Button>
+        {(hasEmptyKey || duplicateKeys.size > 0) && (
+          <div style={{ color: '#ff4d4f', fontSize: 12 }}>
+            键必填且唯一：
+            {hasEmptyKey && <span>存在空键；</span>}
+            {duplicateKeys.size > 0 && (
+              <span>重复键：{Array.from(duplicateKeys).join(', ')}</span>
+            )}
+          </div>
+        )}
+      </Space>
     </div>
   );
 };

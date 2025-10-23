@@ -121,10 +121,12 @@ export class PluginManager {
   }
 
   /**
-   * 获取节点配置表单
-   * 优先返回注入器中覆写的 schema；否则回退到插件自带的配置
+   * 获取节点配置（nodeConfig）
+   * 返回的对象包含表单 `schema` 以及 `widgets`（控件映射）。
+   * 优先使用注入器中覆写的 `schema`，并与插件提供的 `widgets` 合并；
+   * 若未注入，则回退到插件自带的配置（可能同时包含 `schema` 与 `widgets`）。
    * @param nodeType 节点类型
-   * @returns 节点配置表单
+   * @returns `{ schema?: Schema, widgets?: Record<string, any> }`
    */
   public getNodeFormConfig(nodeType: string): any {
     let injected: any;

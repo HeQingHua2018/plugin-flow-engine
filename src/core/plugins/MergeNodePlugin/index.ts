@@ -26,6 +26,13 @@ export class MergeNodePlugin extends BaseNodePlugin {
   public nodeTypeName = nodeName;
   
   /**
+   * 获取节点表单配置项
+   * @returns 节点表单配置项
+   */
+  getNodeFormSchema() {
+    return schema;
+  }
+  /**
    * 检查所有前置节点是否已执行完成
    * 遍历所有入边的源节点，确保它们都已执行成功
    * @param node 当前节点

@@ -32,6 +32,14 @@ export class ParallelNodePlugin extends BaseNodePlugin {
   public nodeTypeName = nodeName;
   
   /**
+   * 获取节点表单配置项
+   * @returns 节点表单配置项
+   */
+  getNodeFormSchema() {
+    return schema;
+  }
+
+  /**
    * 获取节点执行状态
    * @param node 节点信息
    * @param pluginExecutionEngine 插件执行引擎

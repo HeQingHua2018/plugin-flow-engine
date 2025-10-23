@@ -6,20 +6,12 @@
  * @example: 调用示例
  */
 
-import React, { useEffect } from 'react';
-import { Button, Form, message } from 'antd';
+import React, { useEffect, useState, useImperativeHandle, forwardRef } from 'react';
+import { Button, Form, message, Space } from 'antd';
 
 import { getWidgetByType } from '../utils/NodeInjector';
 
-import type { DynamicFormProps, Field } from './type';
-
-/**
- * 根据字段类型获取对应的控件组件
- * @param type 字段类型
- * @param widget 可选的指定控件类型
- * @returns 对应的控件组件
- */
-// 删除本地 getWidgetByType，统一使用注入器提供的方法
+import type { DynamicFormProps, Field, DynamicConfigFormRef } from './type';
 
 /**
  * 检查字段是否可见，根据依赖条件判断
@@ -47,12 +39,21 @@ const checkDependency = (field: Field, formValues: Record<string, any>): boolean
  * @param onChange 值变化回调
  * @returns 动态配置表单组件实例
  */
-const DynamicConfigForm: React.FC<DynamicFormProps> = ({ schema, value, onChange }: DynamicFormProps) => {
+const DynamicConfigForm = forwardRef<DynamicConfigFormRef, DynamicFormProps>((props, ref) => {
+  const { schema, value, onChange, onSave, onValidateSave, showButtons = true, renderButton } = props;
+
   const [form] = Form.useForm<Record<string, any>>();
-  // 当value变化时，更新表单值
+  // 通过 ref 暴露 form 实例
+  useImperativeHandle(ref, () => ({ form }), [form]);
+
+  // 本地记录当前值用于依赖可见性计算与提升变更
+  const [currentValues, setCurrentValues] = useState<Record<string, any>>(value || {});
+
+  // 当value变化时，更新表单值与本地 currentValues
   useEffect(() => {
-    if (value) {
+    if (value && Object.keys(value).length > 0) {
       form.setFieldsValue(value);
+      setCurrentValues(value);
     } else {
       // 设置默认值
       const initialValues: Record<string, any> = {};
@@ -62,30 +63,48 @@ const DynamicConfigForm: React.FC<DynamicFormProps> = ({ schema, value, onChange
         }
       });
       form.setFieldsValue(initialValues);
+      setCurrentValues(initialValues);
     }
   }, [value, schema, form]);
 
-  const handleFieldChange = (fieldName: string, fieldValue: any) => {
-    onChange({
-      ...value,
-      [fieldName]: fieldValue,
-    });
+  const handleSave = () => {
+    const result = form.getFieldsValue();
+    onSave?.(result);
   };
+
   const handleSaveConfig = async () => {
     try {
       const result = await form.validateFields();
       message.success('校验通过');
-      console.log('校验通过的配置', result);
+      onValidateSave?.(result);
     } catch (e) {
       message.error('校验失败, 请检查表单输入项');
-      console.log(e);
+      // 保持抽屉/容器不关闭，由上层决定
     }
   };
+
+  // 渲染自定义按钮（若提供），提供操作 API
+  const renderCustomButtons = () => {
+    return (
+      <Form.Item>
+        {renderButton?.()}
+      </Form.Item>
+    );
+  };
+
   return (
-    <Form layout="vertical" style={{ width: '100%' }} form={form}>
-      {schema.config.map((field) => {
+    <Form
+      layout="vertical"
+      style={{ width: '100%' }}
+      form={form}
+      onValuesChange={(_, allValues) => {
+        setCurrentValues(allValues);
+        onChange?.(allValues);
+      }}
+    >
+      {schema.config.map((field: Field) => {
         const Widget = getWidgetByType(field.type, field.widget);
-        const isVisible = checkDependency(field, value || {});
+        const isVisible = checkDependency(field, currentValues || {});
 
         if (!isVisible) return null;
 
@@ -100,21 +119,31 @@ const DynamicConfigForm: React.FC<DynamicFormProps> = ({ schema, value, onChange
             {...formItemProps}
           >
             <Widget
-              value={value ? value[field.field] : field.defaultValue}
-              onChange={(val: any) => handleFieldChange(field.field, val)}
               {...widgetProps}
             />
           </Form.Item>
         );
       })}
-      <Form.Item>
-        <Button type="primary" onClick={handleSaveConfig}>
-          保存配置
-        </Button>
-      </Form.Item>
+
+      {renderButton ? (
+        renderCustomButtons()
+      ) : (
+        showButtons && (
+          <Form.Item>
+            <Space>
+              <Button type="primary" onClick={handleSaveConfig}>
+                校验并保存配置
+              </Button>
+              <Button type="primary" onClick={handleSave}>
+                保存配置
+              </Button>
+            </Space>
+          </Form.Item>
+        )
+      )}
     </Form>
   );
-};
+});
 
 export default DynamicConfigForm;
 

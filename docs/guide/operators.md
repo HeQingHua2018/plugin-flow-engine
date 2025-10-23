@@ -10,7 +10,7 @@ toc: menu
 - 基于 `json-rules-engine` 的 `Engine.addOperator` 扩展规则表达能力。
 - 支持“内置增强操作符”与“外部自定义操作符”两类。
 - 在流程的 `Node.config.conditions` 或 `Edge.conditions` 中直接使用操作符。
-- 相关类型：[TopLevelCondition](http://localhost:8003/guide/types#toplevelcondition)（规则结构），详见 [类型速查](http://localhost:8003/guide/types)。
+- 相关类型：[TopLevelCondition](./types.md#toplevelcondition)（规则结构），详见 [类型速查](./types.md)。
 
 ## 注入 API
 ```ts

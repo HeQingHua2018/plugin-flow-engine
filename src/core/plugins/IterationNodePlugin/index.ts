@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /*
  * @File: IterationNodePlugin.ts
  * @desc: 迭代节点插件实现
@@ -28,6 +29,14 @@ export class IterationNodePlugin extends BaseNodePlugin {
    * 节点类型名称
    */
   public nodeTypeName = nodeName;
+
+  /**
+   * 获取节点表单配置项
+   * @returns 节点表单配置项
+   */
+  getNodeFormConfig() {
+    return schema;
+  }
 
   /**
    * 调用节点关联的事件方法

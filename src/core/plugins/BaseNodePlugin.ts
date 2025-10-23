@@ -38,13 +38,7 @@ export abstract class BaseNodePlugin implements NodePlugin {
    * @returns 节点表单配置项schema对象
    */
   getNodeFormConfig() :NodeConfig | null{
-    return {
-      schema: {
-        type: this.nodeType,
-        label: this.nodeTypeName,
-        config: [],
-      },
-    };
+    return null;
   }
 
   /**

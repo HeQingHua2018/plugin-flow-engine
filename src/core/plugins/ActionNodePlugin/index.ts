@@ -24,10 +24,10 @@ export class ActionNodePlugin extends BaseNodePlugin {
    */
   public nodeTypeName = nodeName;
 
-  /**
-   * 获取节点表单配置项schema
-   * @returns 节点表单配置项schema对象
-   */
+ /**
+  * 获取节点表单配置项
+  * @returns 节点表单配置项
+  */
   getNodeFormConfig() {
     return schema;
   }

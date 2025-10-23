@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /*
  * @File: EndNodePlugin.ts
  * @desc: 结束节点插件实现，处理流程的终结逻辑
@@ -25,6 +26,14 @@ export class EndNodePlugin extends BaseNodePlugin {
    * 节点类型名称
    */
   public nodeTypeName = nodeName;
+
+  /**
+   * 获取节点表单配置项
+   * @returns 节点表单配置项
+   */
+  getNodeFormSchema() {
+    return schema;
+  }
 
   /**
  * 获取结束节点的执行状态
