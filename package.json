@@ -8,18 +8,15 @@
     "flow",
     "engine"
   ],
-  "author": "HeQingHua",
   "homepage": "https://flow.chloehe.cn",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/HeQingHua2018/plugin-flow-engine.git"
   },
+  "author": "HeQingHua",
   "workspaces": [
     "packages/*"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "scripts": {
     "build": "lerna run --scope @plugin-flow-engine/core build && lerna run --scope @plugin-flow-engine/ui && lerna run --scope @plugin-flow-engine/type build",
     "changelog": "conventional-changelog -p angular -r 0 -o ./packages/doc/docs/versions/changelog.md",
@@ -29,13 +26,9 @@
     "lint:eslint": "eslint --ext .js,.jsx,.ts,.tsx --fix --quiet ./",
     "lint:stylelint": "stylelint --fix ./**/*.less",
     "prepare": "husky",
+    "publish:lerna": "lerna publish from-package --yes --access public",
     "version:lerna": "lerna version",
-    "publish:lerna": "lerna publish from-package --yes --access public"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "commit": "cz"
   },
   "lint-staged": {
     "*.{md,json}": [
@@ -53,6 +46,11 @@
       "eslint --fix",
       "prettier --parser=typescript --write"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-customizable"
+    }
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
@@ -73,6 +71,7 @@
     "babel-plugin-import": "^1.13.8",
     "conventional-changelog-angular": "^8.0.0",
     "conventional-changelog-cli": "^5.0.0",
+    "cz-customizable": "^7.4.0",
     "dumi": "^2.4.13",
     "eslint": "^8.23.0",
     "father": "^4.1.0",
@@ -94,5 +93,8 @@
     "react": "^18",
     "react-dom": "^18"
   },
-  "packageManager": "pnpm@10.18.2"
+  "packageManager": "pnpm@10.18.2",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
 }
