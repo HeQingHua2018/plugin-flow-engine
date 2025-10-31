@@ -1,0 +1,25 @@
+{
+  "name": "@plugin-flow-engine/doc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "规则引擎文档站点",
+  "scripts": {
+    "build": "dumi build",
+    "clean": "rimraf dist",
+    "dev": "dumi dev",
+    "preview": "dumi preview",
+    "setup": "dumi setup"
+  },
+  "dependencies": {
+    "@plugin-flow-engine/core": "workspace:^1.0.0",
+    "@plugin-flow-engine/type": "workspace:^1.0.0",
+    "@plugin-flow-engine/ui": "workspace:^1.0.0",
+    "@xyflow/react": "^12.9.0",
+    "antd": "^5.27.6",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "dumi": "^2.4.13"
+  }
+}

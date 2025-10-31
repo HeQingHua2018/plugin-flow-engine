@@ -1,0 +1,42 @@
+{
+  "name": "@plugin-flow-engine/type",
+  "version": "1.0.0",
+  "description": "规则引擎类型定义模块",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./es/index.js",
+      "require": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    },
+    "./common": {
+      "import": "./es/common.js",
+      "require": "./lib/common.js",
+      "types": "./lib/common.d.ts"
+    },
+    "./core": {
+      "import": "./es/core.js",
+      "require": "./lib/core.js",
+      "types": "./lib/core.d.ts"
+    },
+    "./ui": {
+      "import": "./es/ui.js",
+      "require": "./lib/ui.js",
+      "types": "./lib/ui.d.ts"
+    }
+  },
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "scripts": {
+    "prepublishOnly": "father build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

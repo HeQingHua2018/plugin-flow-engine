@@ -1,0 +1,26 @@
+# dependencies
+node_modules
+dist
+lib
+esm
+es
+docs-dist
+
+# umi
+.umi
+.umi-production
+.umi-test
+
+#dumi
+**/.dumi/tmp
+**/.dumi/tmp-test
+**/.dumi/tmp-production
+
+# ide
+/.vscode
+/.idea
+.DS_Store
+.idea
+.vscode
+.history
+

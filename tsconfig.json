@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "esnext", //指定被编译代码ECMAScript版本
+    "lib": ["esnext", "dom"],
+    "module": "esnext", //指定生成哪个模块系统代码
+    "moduleResolution": "node", //决定如何处理模块
+    "removeComments": false /* 编译后的文件删除注释 */,
+    "importHelpers": true, //是否导入辅助函数
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "strict": true, //是否启用严格模式
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true, //禁止对同一个文件的不一致的引用。
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    // 增加内部包提示
+    "paths": {
+      "@plugin-flow-engine/type": ["./packages/type/src/index.ts"],
+      "@plugin-flow-engine/type/common": ["./packages/type/src/common.ts"],
+      "@plugin-flow-engine/type/core": ["./packages/type/src/core.ts"],
+      "@plugin-flow-engine/type/ui": ["./packages/type/src/ui.ts"],
+      "@plugin-flow-engine/core": ["./packages/core/src/index.ts"],
+      "@plugin-flow-engine/ui": ["./packages/ui/src/index.ts"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts", "custom.d.ts"],
+  "exclude": ["node_modules", "build", "dist", "lib", "esm"]
+}

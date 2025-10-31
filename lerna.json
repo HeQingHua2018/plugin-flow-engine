@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "private": true,
+  "packages": ["packages/*"],
+  "command": {
+    "publish": {
+      "ignoreChanges": ["ignored-file"]
+    },
+    "bootstrap": {
+      "npmClientArgs": ["--no-package-lock"]
+    }
+  },
+  "npmClient": "pnpm",
+  "useWorkspaces": true,
+  "version": "1.0.0"
+}

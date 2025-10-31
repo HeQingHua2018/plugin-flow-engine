@@ -1,0 +1,1 @@
+export type { BaseWidgetProps, WidgetProps } from '@plugin-flow-engine/type';

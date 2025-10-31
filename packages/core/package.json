@@ -1,0 +1,34 @@
+{
+  "name": "@plugin-flow-engine/core",
+  "version": "1.0.0",
+  "description": "规则引擎核心模块（执行、插件、事件调用）",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "scripts": {
+    "build": "father build",
+    "clean": "rimraf dist lib es",
+    "dev": "father dev",
+    "prepublishOnly": "father build"
+  },
+  "dependencies": {
+    "@plugin-flow-engine/type": "workspace:^1.0.0",
+    "@types/lodash": "^4.17.20",
+    "json-rules-engine": "^7.3.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1"
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
