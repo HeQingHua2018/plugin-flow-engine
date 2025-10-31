@@ -110,12 +110,21 @@ const DynamicConfigForm = forwardRef<DynamicConfigFormRef, DynamicFormProps>((pr
         // 分离formItemProps和widgetProps
         const { formItemProps = {}, widgetProps = {} } = field;
 
+        // 兜底校验策略：如果标记了 required 但未提供 rules，则自动添加必填规则
+        const needRequiredRule = (formItemProps as any).required && !(formItemProps as any).rules;
+        const safeFormItemProps = needRequiredRule
+          ? {
+              ...formItemProps,
+              rules: [{ required: true, message: `请输入${field.label || field.field}` }],
+            }
+          : formItemProps;
+
         return (
           <Form.Item
             key={field.field}
             name={field.field}
             label={field.label}
-            {...formItemProps}
+            {...safeFormItemProps}
           >
             <Widget
               {...widgetProps}
