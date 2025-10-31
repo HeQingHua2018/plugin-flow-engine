@@ -2,7 +2,7 @@ name: Deploy Dumi Docs
 
 on:
   push:
-    branches: [ "master", "feature/v1.0.0" ]
+    branches: [ "master" ]
   workflow_dispatch:
     inputs:
       reason:
