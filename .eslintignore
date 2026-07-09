@@ -1,0 +1,31 @@
+# 忽略node_modules目录
+node_modules/
+
+# 忽略打包输出目录
+lib/
+es/
+dist/
+build/
+
+# 忽略文档生成目录
+.dumi/
+
+# 忽略测试覆盖率报告
+coverage/
+
+# 忽略临时文件
+*.tmp
+*.temp
+
+# 忽略系统文件
+.DS_Store
+Thumbs.db
+
+# 忽略日志文件
+*.log
+
+# 忽略编辑器配置文件
+.idea/
+.vscode/
+*.swp
+*.swo

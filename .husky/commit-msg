@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+pnpm commitlint --edit "${1}" || {
+  echo "提交信息格式错误，请使用 'pnpm commit' 命令进行规范化提交"
+  exit 1
+}

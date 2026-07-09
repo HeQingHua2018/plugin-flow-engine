@@ -1,0 +1,39 @@
+{
+  "name": "@chloehe/utils",
+  "version": "1.0.0",
+  "description": "TypeScript 工具函数库，提供字符串处理、时间格式化、数组分组、树形数据操作、数据校验等功能",
+  "keywords": [
+    "utils",
+    "typescript",
+    "string",
+    "tree",
+    "validation",
+    "format",
+    "groupBy"
+  ],
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "homepage": "https://flow.chloehe.cn",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "scripts": {
+    "build": "father build",
+    "clean": "rimraf dist lib es",
+    "dev": "father dev",
+    "prepublishOnly": "father build",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "packageManager": "pnpm@10.18.2"
+}

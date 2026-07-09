@@ -1,0 +1,38 @@
+{
+  "name": "@chloehe/logic-engine-core",
+  "version": "1.0.0",
+  "description": "规则引擎核心模块（执行、插件、事件调用）",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "homepage": "https://flow.chloehe.cn",
+  "files": [
+    "es",
+    "lib",
+    "src/scripts"
+  ],
+  "bin": {
+    "create-plugin": "src/scripts/create-plugin.js"
+  },
+  "scripts": {
+    "build": "father build",
+    "clean": "rimraf dist lib es",
+    "dev": "father dev",
+    "prepublishOnly": "father build",
+    "test": "jest --config ../../jest.config.ts"
+  },
+  "dependencies": {
+    "@chloehe/logic-engine-common": "workspace:^1.0.0",
+    "json-rules-engine": "^7.3.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.20",
+    "rimraf": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "packageManager": "pnpm@10.18.2",
+  "gitHead": "ae3d5d108d53067fc055ee4e7c16bfbb672d7797"
+}

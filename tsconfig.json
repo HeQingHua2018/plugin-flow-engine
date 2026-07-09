@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": ["esnext", "dom"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "importHelpers": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "strict": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@chloehe/logic-engine-common": ["./packages/common/src/index.ts"],
+      "@chloehe/logic-engine-core": ["./packages/core/src/index.ts"],
+      "@chloehe/logic-engine-ui": ["./packages/ui/src/index.ts"],
+      "@chloehe/logic-engine-react": ["./packages/react/src/index.ts"],
+      "@chloehe/utils": ["./packages/utils/src/index.ts"],
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
+  "exclude": ["node_modules","docs-dist", "dist", "lib", "es"]
+}

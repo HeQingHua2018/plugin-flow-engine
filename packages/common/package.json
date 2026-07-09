@@ -1,0 +1,35 @@
+{
+  "name": "@chloehe/logic-engine-common",
+  "version": "1.0.0",
+  "description": "插件流程引擎公共库",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "homepage": "https://flow.chloehe.cn",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "scripts": {
+    "build": "father build",
+    "clean": "rimraf dist lib es",
+    "dev": "father dev",
+    "prepublishOnly": "father build",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "json-rules-engine": "^7.3.1",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.20",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "packageManager": "pnpm@10.18.2",
+  "gitHead": "ae3d5d108d53067fc055ee4e7c16bfbb672d7797"
+}
