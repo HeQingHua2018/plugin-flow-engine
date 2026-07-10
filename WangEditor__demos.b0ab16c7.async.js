@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_chloehe_logic_engine_doc=self.webpackChunk_chloehe_logic_engine_doc||[]).push([[3897],{41383:function(l,e,_){_.r(e);var c=_(77428),o=_(44194),n=_(31549),i=function(){return(0,n.jsx)("div",{children:(0,n.jsx)(c.WangEditor,{})})};e.default=i}}]);
