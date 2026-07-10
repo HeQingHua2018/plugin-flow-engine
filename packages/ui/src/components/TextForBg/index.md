@@ -19,4 +19,15 @@ group: # 分组
 
 ## API
 
-<API id="TextForBg"></API>
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| imageUrl | 图片地址 | `string` | |
+| text | 文本 | `string` | `'TEXT'` |
+| textColor | 文本颜色 | `string` | `'#00f'` |
+| textOpacity | 透明度 | `number` | `0.9` |
+| fontSize | 文本大小 | `string \| number \| undefined` | `'10em'` |
+| fontWeight | 文本粗细 | `string \| number \| undefined` | `'bold'` |
+| textAnchor | 文本对齐方式 | `"start" \| "middle" \| "end" \| "inherit" \| undefined` | `'middle'` |
+| alignmentBaseline | 文本基线对齐方式 | `'auto' \| 'baseline' \| 'before-edge' \| 'text-before-edge' \| 'middle' \| 'central' \| 'after-edge' \| 'text-after-edge' \| 'ideographic' \| 'alphabetic' \| 'hanging' \| 'mathematical' \| 'inherit' \| undefined` | `'middle'` |
+| x | 文本位置横坐标 | `number \| string \| undefined` | `'50%'` |
+| y | 文本位置纵坐标 | `number \| string \| undefined` | `'50%'` |

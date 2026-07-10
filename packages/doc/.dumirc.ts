@@ -31,12 +31,12 @@ export default defineConfig({
     deviceWidth: 375,
   },
   // 开启api解析
-  apiParser: {},
+  // apiParser: {},
    resolve: {
     //dumi解析配置
     docDirs: ["docs"], //默认解析文档目录
     // 启用api解析，指定的入口文件
-    entryFile: '../ui/src/index.ts',
+    // entryFile: '../ui/src/index.ts',
     atomDirs: [
        { type: 'components', dir: '../ui/src/components' },
        { type: "commons", dir: "../common/src" },

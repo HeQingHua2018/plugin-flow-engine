@@ -28,7 +28,7 @@
 
 > 说明：各包使用 Father 构建，产物位于 `es/` 与 `lib/`（按 ESM/CJS），`files` 字段已声明要发布的目录。
 
-## 发布到 npm（包：core/ui/common）
+## 发布到 npm（包：core/ui/common/react/utils）
 
 - 前置检查：确保已构建（见上）、各包版本号已更新，并已登录 npm（`npm login` 或设置 `NPM_TOKEN`）。
 - 发布方式：

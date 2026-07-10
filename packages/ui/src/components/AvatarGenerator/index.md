@@ -19,4 +19,9 @@ group: # 分组
 
 ## API
 
-<API id="AvatarGenerator"></API>
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| hatArr | 帽子图片数组 | `string[]` | 默认帽子数组 |
+| width | 画布宽度 | `number` | `200` |
+| height | 画布高度 | `number` | `200` |
+| fileName | 合成图片的文件名 | `string` | `'avatar-xxx'` |

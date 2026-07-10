@@ -32,37 +32,37 @@ RuleEditor是一个功能强大的条件规则编辑器，支持复杂规则的�
 
 ## API
 
-| 属性      | 说明                                                 | 类型                                                                              | 默认值 | 版本 |
-| --------- | ---------------------------------------------------- | --------------------------------------------------------------------------------- | ------ | ---- |
-| fields    | 字段数据                                             | [RuleFieldDataType[]](#rulefielddatatype)                                         | `[]`   |      |
-| rules     | 规则数据                                             | [RuleItemType](#ruleitemtype)                                                     |        |      |
-| mode      | 渲染模式                                             | `edit \| show`                                                                    | `edit` |      |
-| onChange  | 值变更事件                                           | `(all: RuleItemType, current: RuleItemType) => void`                              |        |      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| fields | 字段数据 | [RuleFieldDataType[]](#rulefielddatatype) | `[]` |
+| rules | 规则数据 | [RuleItemType](#ruleitemtype) | |
+| mode | 渲染模式 | `edit \| show` | `edit` |
+| onChange | 值变更事件 | `(all: RuleItemType, current: RuleItemType) => void` | |
 
 ### RuleFieldDataType
 
-| 属性      | 说明                              | 类型              | 默认值                                   | 版本 |
-| --------- | --------------------------------- | ----------------- | ---------------------------------------- | ---- |
-| key       | 唯一标识                          | `string`          |                                          |      |
-| type      | 字段类型([FieldType](#fieldtype)) | `string`          |                                          |      |
-| label     | 显示名称                          | `string`          |                                          |      |
-| fieldName | 字段名称                          | `string`          |                                          |      |
-| props     | 不同类型字段配置                  | `object`          |                                          |      |
-| rules     | 指定展示规则                      | `Array<RuleType>` | `["eq", "ne", "is_null", "is_not_null"]` |      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| key | 唯一标识 | `string` | |
+| type | 字段类型([FieldType](#fieldtype)) | `string` | |
+| label | 显示名称 | `string` | |
+| fieldName | 字段名称 | `string` | |
+| props | 不同类型字段配置 | `object` | |
+| rules | 指定展示规则 | `Array<RuleType>` | `["eq", "ne", "is_null", "is_not_null"]` |
 
 ### RuleItemType
 
-| 属性      | 说明                              | 类型                          | 默认值 | 版本 |
-| --------- | --------------------------------- | ----------------------------- | ------ | ---- |
-| key       | 唯一标识                          | `string`                      |        |      |
-| type      | 规则类别                          | `group \| rule`               |        |      |
-| link      | 关系(仅type为group时生效)         | `and \| or`                   |        |      |
-| rule      | 规则([RuleType](#ruletype))       | `string`                      |        |      |
-| fieldName | 字段名                            | `string`                      |        |      |
-| fieldType | 字段类型([FieldType](#fieldtype)) | `string`                      |        |      |
-| value     | 值                                | `any[]`                       |        |      |
-| children  | 子项(规则类别为group时才存在)     | [RuleItemType](#ruleitemtype) |        |      |
-| desc      | 规则语义化描述                    | `string`                      |        |      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| key | 唯一标识 | `string` | |
+| type | 规则类别 | `group \| rule` | |
+| link | 关系(仅type为group时生效) | `and \| or` | |
+| rule | 规则([RuleType](#ruletype)) | `string` | |
+| fieldName | 字段名 | `string` | |
+| fieldType | 字段类型([FieldType](#fieldtype)) | `string` | |
+| value | 值 | `any[]` | |
+| children | 子项(规则类别为group时才存在) | [RuleItemType](#ruleitemtype) | |
+| desc | 规则语义化描述 | `string` | |
 
 ### RuleType
 

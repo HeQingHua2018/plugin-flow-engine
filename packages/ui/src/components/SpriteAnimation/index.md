@@ -19,4 +19,10 @@ group: # 分组
 
 ## API
 
-<API id="SpriteAnimation"></API>
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| spriteImageUrl | 图片地址 | `string` | |
+| frameCount | 总帧数 | `number` | |
+| frameWidth | 每一帧图片宽度 | `number` | |
+| frameHeight | 每一帧图片高度 | `number` | |
+| animationSpeed | 动画速度，控制帧更新的频率（毫秒/帧） | `number` | `30` |
