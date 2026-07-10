@@ -1,4 +1,11 @@
 /**
+ * @File: 
+ * @desc: 
+ * @author: heqinghua
+ * @date: 2025年10月31日 15:12:26
+ * @example: 调用示例
+ **/
+/**
  * Git提交规范配置
  * 格式：type:[空格]message
  * 示例：feat: 这是一个新的feature

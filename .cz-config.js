@@ -14,6 +14,7 @@ module.exports = {
     { value: 'feat', name: '✨ feat:\tA new feature | 新功能' },
     { value: 'fix', name: '🐛 fix:\tA bug fix | Bug 修复' },
     { value: 'docs', name: '📝 docs:\tDocumentation only changes | 文档' },
+    { value: 'doc', name: '📝 doc:\tDocumentation only changes | 文档' },
     { value: 'style', name: '🎨 style:\tMarkup, white-space, formatting, missing semi-colons... | 风格' },
     { value: 'refactor', name: '♻️ refactor:\tA code change that neither fixes a bug or adds a feature | 代码重构' },
     { value: 'perf', name: '⚡️ perf:\tA code change that improves performance | 性能优化' },
